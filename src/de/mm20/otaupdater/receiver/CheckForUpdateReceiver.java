@@ -46,6 +46,8 @@ public class CheckForUpdateReceiver extends BroadcastReceiver {
     private ArrayList<String> mFileNames;
     private ArrayList<String> mUris;
     private ArrayList<String> mMD5Sums;
+    private ArrayList<String> mTypes;
+    private ArrayList<Integer> mPatchLevel;
     private String mBuildsListUri;
     private String mDevice;
     private Context mContext;
@@ -58,6 +60,8 @@ public class CheckForUpdateReceiver extends BroadcastReceiver {
         mMD5Sums = new ArrayList<>();
         mNames = new ArrayList<>();
         mUris = new ArrayList<>();
+        mTypes = new ArrayList<>();
+        mPatchLevel = new ArrayList<>();
         mDevice = SystemProperties.get("ro.cm.device");
         new FetchBuildsAsyncTask().execute("");
     }
@@ -72,6 +76,12 @@ public class CheckForUpdateReceiver extends BroadcastReceiver {
         return -1;
     }
 
+    private int getSystemPatchLevel() {
+        String patchLevel = SystemProperties.get("ro.cm.patchlevel");
+        if (patchLevel.isEmpty()) return 0;
+        return Integer.parseInt(patchLevel);
+    }
+
     class FetchBuildsAsyncTask extends AsyncTask<String, Integer, Integer> {
 
         @Override
@@ -84,18 +94,22 @@ public class CheckForUpdateReceiver extends BroadcastReceiver {
                 parser.setInput(new InputStreamReader(url.openStream()));
                 while (parser.nextToken() != XmlPullParser.END_DOCUMENT) {
                     if (parser.getEventType() == XmlPullParser.START_TAG && parser.getName()
-                            .equals("build") && parser.getAttributeValue(4).equals(mDevice) &&
-                            compareBuildDates(parser.getAttributeValue(1)) != -1) {
-                        mNames.add(parser.getAttributeValue(0));
-                        mFileNames.add(parser.getAttributeValue(1));
-                        mUris.add(parser.getAttributeValue(2));
-                        mMD5Sums.add(parser.getAttributeValue(3));
-                        Log.d(TAG, parser.getAttributeValue(0));
+                            .equals("build") && parser.getAttributeValue(null, "device")
+                            .equals(mDevice)) {
+                        mNames.add(parser.getAttributeValue(null, "name"));
+                        mFileNames.add(parser.getAttributeValue(null, "filename"));
+                        mUris.add(parser.getAttributeValue(null, "uri"));
+                        mMD5Sums.add(parser.getAttributeValue(null, "md5"));
+                        mTypes.add(parser.getAttributeValue(null, "type"));
+                        mPatchLevel.add(Integer.parseInt(parser
+                                .getAttributeValue(null, "patchlevel")));
                     }
                 }
 
                 for (int i = mFileNames.size() - 1; i >= 0; i--) {
-                    if (compareBuildDates(mFileNames.get(i)) == -1) {
+                    if (compareBuildDates(mFileNames.get(i)) == -1 || (mTypes.get(i).equals("patch")
+                            && mPatchLevel.get(i) <= getSystemPatchLevel() &&
+                            compareBuildDates(mFileNames.get(i)) != 0)) {
                         //Delete builds which are older than the installed one
                         File file = new File(Environment.getExternalStorageDirectory() +
                                 "/cmupdater/" + mFileNames.get(i));
@@ -107,6 +121,8 @@ public class CheckForUpdateReceiver extends BroadcastReceiver {
                         mMD5Sums.remove(i);
                         mUris.remove(i);
                         mNames.remove(i);
+                        mTypes.remove(i);
+                        mPatchLevel.remove(i);
                     }
                 }
             } catch (java.io.IOException | XmlPullParserException e) {
@@ -138,6 +154,7 @@ public class CheckForUpdateReceiver extends BroadcastReceiver {
                     .putString("file_name_list", asString(mFileNames))
                     .putString("build_uri_list", asString(mUris))
                     .putString("md5_sum_list", asString(mMD5Sums))
+                    .putString("type_list", asString(mTypes))
                     .putLong("updates_last_checked", System.currentTimeMillis())
                     .apply();
         }

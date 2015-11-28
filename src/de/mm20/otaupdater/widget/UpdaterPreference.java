@@ -43,6 +43,7 @@ public class UpdaterPreference extends Preference implements View.OnClickListene
     private String mFileName;
     private String mFileUri;
     private String mMd5;
+    private String mType;
     private Context mContext;
 
     private TextView mTitle;
@@ -58,13 +59,14 @@ public class UpdaterPreference extends Preference implements View.OnClickListene
     private int mInstalledDeprecated;
 
     public UpdaterPreference(Context context, String buildName, String fileName, String fileUri,
-                             String md5, int installedDeprecated) {
+                             String md5, String type, int installedDeprecated) {
         super(context);
         mContext = context;
         mFileUri = fileUri;
         mMd5 = md5;
         mBuildName = buildName;
         mFileName = fileName;
+        mType = type;
         mAbortDownload = false;
         mInstalledDeprecated = installedDeprecated;
         setLayoutResource(R.layout.updater_preference);
@@ -77,7 +79,8 @@ public class UpdaterPreference extends Preference implements View.OnClickListene
         mSummary = (TextView) view.findViewById(R.id.summary);
         mProgress = (ProgressBar) view.findViewById(R.id.progress);
         mIcon = (ImageButton) view.findViewById(R.id.icon);
-        if (mInstalledDeprecated == 0)
+        if (mType.equals("patch")) mInstalledDeprecated = 1;
+        if (mInstalledDeprecated == 0 && mType.equals("build"))
             mTitle.setText(mBuildName + " " + mContext.getString(R.string.installed));
         else if (mInstalledDeprecated == -1)
             mTitle.setText(mBuildName + " " + mContext.getString(R.string.deprecated));
@@ -99,6 +102,7 @@ public class UpdaterPreference extends Preference implements View.OnClickListene
                 download.putExtra("file_name", mFileName);
                 download.putExtra("md5", mMd5);
                 download.putExtra("uri", mFileUri);
+                download.putExtra("install_deprecated", mInstalledDeprecated);
                 mContext.sendBroadcast(download);
                 break;
             case STATE_ABORT_DOWNLOAD:

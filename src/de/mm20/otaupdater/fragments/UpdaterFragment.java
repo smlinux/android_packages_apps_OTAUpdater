@@ -44,7 +44,7 @@ public class UpdaterFragment extends PreferenceFragment
     private String[] mMD5Sums;
     private String[] mNames;
     private String[] mUris;
-    private String mDevice;
+    private String[] mTypes;
     private Preference mCheckUpdates;
     private ArrayList<UpdaterPreference> mUpdaterPreferences;
 
@@ -56,7 +56,6 @@ public class UpdaterFragment extends PreferenceFragment
         addPreferencesFromResource(R.xml.updater);
         mUpdaterPreferences = new ArrayList<>();
         mUpdatesCategory = (PreferenceCategory) findPreference("updater_category");
-        mDevice = SystemProperties.get("ro.cm.device");
         mCheckUpdates = findPreference("search_updates");
         long lastCheckedTime = PreferenceManager.getDefaultSharedPreferences(getActivity())
                 .getLong("updates_last_checked", -1);
@@ -72,7 +71,7 @@ public class UpdaterFragment extends PreferenceFragment
         mCheckUpdates.setOnPreferenceClickListener(this);
         for (int i = 0; i < mFileNames.length; i++) {
             UpdaterPreference pref = new UpdaterPreference(mContext, mNames[i], mFileNames[i],
-                    mUris[i], mMD5Sums[i], compareBuildDates(mFileNames[i]));
+                    mUris[i], mMD5Sums[i], mTypes[i], compareBuildDates(mFileNames[i]));
             mUpdatesCategory.addPreference(pref);
             mUpdaterPreferences.add(pref);
         }
@@ -92,6 +91,8 @@ public class UpdaterFragment extends PreferenceFragment
                 .getString("build_uri_list", "").split(",");
         mMD5Sums = PreferenceManager.getDefaultSharedPreferences(activity)
                 .getString("md5_sum_list", "").split(",");
+        mTypes = PreferenceManager.getDefaultSharedPreferences(activity)
+                .getString("type_list", "").split(",");
 
     }
 
@@ -149,9 +150,11 @@ public class UpdaterFragment extends PreferenceFragment
                     .getString("build_uri_list", "").split(",");
             mMD5Sums = PreferenceManager.getDefaultSharedPreferences(mContext)
                     .getString("md5_sum_list", "").split(",");
+            mTypes = PreferenceManager.getDefaultSharedPreferences(mContext)
+                    .getString("type_list", "").split(",");
             for (int i = 0; i < mFileNames.length; i++) {
                 UpdaterPreference pref = new UpdaterPreference(mContext, mNames[i], mFileNames[i],
-                        mUris[i], mMD5Sums[i], compareBuildDates(mFileNames[i]));
+                        mUris[i], mMD5Sums[i], mTypes[i], compareBuildDates(mFileNames[i]));
                 mUpdatesCategory.addPreference(pref);
                 mUpdaterPreferences.add(pref);
             }

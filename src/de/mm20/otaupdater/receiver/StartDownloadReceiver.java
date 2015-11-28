@@ -49,6 +49,7 @@ public class StartDownloadReceiver extends BroadcastReceiver {
     private String mFileName;
     private String mUri;
     private String mMd5;
+    private String mInstallDeprecated;
     private Context mContext;
     private Notification.Builder mBuilder;
 
@@ -58,6 +59,7 @@ public class StartDownloadReceiver extends BroadcastReceiver {
         mFileName = intent.getStringExtra("file_name");
         mUri = intent.getStringExtra("uri");
         mMd5 = intent.getStringExtra("md5");
+        mInstallDeprecated = intent.getStringExtra("install_deprecated");
         new DownloadFileAsyncTask().execute(mUri);
     }
 
@@ -173,7 +175,7 @@ public class StartDownloadReceiver extends BroadcastReceiver {
             if (result) {
                 Toast.makeText(mContext, R.string.build_ready, Toast.LENGTH_LONG).show();
                 Intent i = new Intent(mContext, InstallUpdateActivity.class);
-                i.putExtra("installed_deprecated", compareBuildDates(mFileName));
+                i.putExtra("installed_deprecated", mInstallDeprecated);
                 mBuilder.setOngoing(false)
                         .setUsesChronometer(true)
                         .setContentTitle(mContext.getString(R.string.build_ready))

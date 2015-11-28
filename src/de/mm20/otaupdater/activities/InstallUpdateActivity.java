@@ -27,6 +27,7 @@ import android.os.PowerManager;
 import android.util.Log;
 
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 
 import de.mm20.otaupdater.R;
@@ -41,25 +42,25 @@ public class InstallUpdateActivity extends Activity {
         int installedDeprecated = getIntent().getIntExtra("installed_deprecated", 1);
         int msgId = R.string.confirm_install;
         //if (!isSeLinuxEnforcing() || setSeLinuxPermissive()) {
-            if (installedDeprecated == 0) msgId = R.string.confirm_install_installed;
-            else if (installedDeprecated == -1) msgId = R.string.confirm_install_deprecated;
-            builder.setMessage(msgId)
-                    .setTitle(R.string.system_update)
-                    .setCancelable(false)
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            String fileName = getIntent().getStringExtra("file_name");
-                            installUpdate(fileName);
-                        }
-                    })
-                    .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            finish();
-                        }
-                    }).create().show();
+        if (installedDeprecated == 0) msgId = R.string.confirm_install_installed;
+        else if (installedDeprecated == -1) msgId = R.string.confirm_install_deprecated;
+        builder.setMessage(msgId)
+                .setTitle(R.string.system_update)
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String fileName = getIntent().getStringExtra("file_name");
+                        installUpdate(fileName);
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                }).create().show();
 
     }
 
@@ -74,17 +75,23 @@ public class InstallUpdateActivity extends Activity {
                 String updateFile = Environment.getExternalStorageDirectory() + "/cmupdater/" +
                         fileName;
                 try {
-                    Process process = Runtime.getRuntime().exec("sh");
-                    DataOutputStream outputStream = new DataOutputStream(process.getOutputStream());
-                    outputStream.writeBytes("cp -f " + updateFile +
-                            " /cache/recovery/update.zip\n");
-                    outputStream.writeBytes("cp -f " + updateFile +
-                            ".md5sum /cache/recovery/update.zip.md5sum\n");
-                    outputStream.writeBytes("printf \"install /cache/recovery/update.zip\nwipe " +
-                            "cache\nreboot\" >/cache/recovery/openrecoveryscript");
-                    outputStream.flush();
-                    outputStream.close();
-                    process.waitFor();
+                    int attempts = 0;
+                    File file = new File("/cache/recovery/update.zip");
+                    do {
+                        attempts++;
+                        Process process = Runtime.getRuntime().exec("sh");
+                        DataOutputStream outputStream = new DataOutputStream(process.getOutputStream());
+                        outputStream.writeBytes("cp -f " + updateFile +
+                                " /cache/recovery/update.zip\n");
+                        outputStream.writeBytes("cp -f " + updateFile +
+                                ".md5sum /cache/recovery/update.zip.md5sum\n");
+                        outputStream.writeBytes("printf \"install /cache/recovery/update.zip\nwipe " +
+                                "cache\nreboot\" >/cache/recovery/openrecoveryscript");
+                        outputStream.flush();
+                        outputStream.close();
+                        process.waitFor();
+                    } while (!file.exists() && attempts <= 5);
+                    if (attempts > 5) return;
                     PowerManager powerManager = (PowerManager)
                             getSystemService(Context.POWER_SERVICE);
                     powerManager.reboot("recovery");
