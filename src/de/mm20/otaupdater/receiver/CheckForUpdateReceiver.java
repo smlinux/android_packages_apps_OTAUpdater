@@ -94,10 +94,8 @@ public class CheckForUpdateReceiver extends BroadcastReceiver {
                     }
                 }
 
-                ArrayList<Integer> deprecatedBuilds = new ArrayList<>();
                 for (int i = mFileNames.size() - 1; i >= 0; i--) {
                     if (compareBuildDates(mFileNames.get(i)) == -1) {
-                        deprecatedBuilds.add(mFileNames.indexOf(mFileNames.get(i)));
                         //Delete builds which are older than the installed one
                         File file = new File(Environment.getExternalStorageDirectory() +
                                 "/cmupdater/" + mFileNames.get(i));
