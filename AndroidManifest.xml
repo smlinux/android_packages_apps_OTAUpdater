@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="de.mm20.otaupdater"
+          android:sharedUserId="android.uid.system" >
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.REBOOT"/>
+    <uses-permission android:name="android.permission.RECOVERY"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_CACHE_FILESYSTEM" />
+    <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
+
+    <application
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme">
+        <activity
+                android:name=".activities.UpdaterActivity"
+                android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.settings.SYSTEM_UPDATE_SETTINGS"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".activities.InstallUpdateActivity"
+                android:theme="@android:style/Theme.Material.Light.Dialog.NoActionBar"/>
+        <receiver
+                android:name=".receiver.CheckForUpdateReceiver">
+            <intent-filter>
+                <action android:name="de.mm20.otaupdater.CHECK_UPDATES"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+                android:name=".receiver.BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
+        <receiver
+                android:name=".receiver.StartDownloadReceiver">
+            <intent-filter>
+                <action android:name="de.mm20.otaupdater.START_DOWNLOAD"/>
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

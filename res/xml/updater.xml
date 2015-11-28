@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    <Preference android:key="search_updates" android:title="@string/search_updates"/>
+    <PreferenceCategory android:key="updater_category" android:title="@string/updates"/>
+
+</PreferenceScreen>

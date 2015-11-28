@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+    <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginStart="15dip"
+            android:layout_marginEnd="6dip"
+            android:layout_marginTop="16dip"
+            android:layout_marginBottom="6dip">
+        <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/black"
+                android:ellipsize="marquee"
+                android:fadingEdge="horizontal"/>
+
+        <TextView
+                android:id="@+id/summary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="?android:attr/textColorSecondary"
+                android:maxLines="4"/>
+        <ProgressBar
+                android:visibility="invisible"
+                android:id="@+id/progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="?android:progressBarStyleHorizontal"/>
+    </LinearLayout>
+    <ImageButton
+            android:id="@+id/icon"
+            android:alpha="0.5"
+            android:background="?android:selectableItemBackgroundBorderless"
+            android:padding="12dp"
+            android:layout_gravity="center"
+            android:layout_weight="0"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_download"/>
+</LinearLayout>

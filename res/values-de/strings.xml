@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Systemaktualisierungen</string>
+    <string name="confirm_install">Eine Systemaktualisierung steht zur Installation bereit. Möchten
+        Sie sie jetzt installieren?
+    </string>
+    <string name="confirm_install_installed">Dieses Update ist bereits installiert. Möchten Sie es neu installieren?</string>
+    <string name="confirm_install_deprecated">Dieses Update ist veraltet. Es zu installieren kann zu Abstürzen und einem instabilen System führen. Möchten Sie es wirklich installieren?</string>
+    <string name="fetch_failed">Abrufen von Informationen fehlgeschlagen. Bitte prüfen Sie Ihre
+        Internet-Verbindung.
+    </string>
+    <string name="system_update">Systemaktualisierung</string>
+    <string name="updates">Updates</string>
+    <string name="checking_for_updates">Nach Aktualisierungen suchen...</string>
+    <string name="installed"> (installiert)</string>
+    <string name="deprecated"> (veraltet)</string>
+    <string name="downloading_update">Update wird heruntergeladen...</string>
+    <string name="new_updates">Systemaktualisierung</string>
+    <string name="new_update_info">Eine Systemaktualisierung ist verfügbar!</string>
+    <string name="search_updates">Jetzt nach Updates suchen</string>
+    <string name="never">nie</string>
+    <string name="last_checked">Zuletzt gesucht:</string>
+    <string name="build_ready">Update steht zur Installation bereit</string>
+    <string name="build_ready_description">Für Installation hier tippen.</string>
+    <string name="download_failed">Download des Updates ist fehlgeschlagen oder wurde abgebrochen!</string>
+    <string name="install_failed">Installation fehlgeschlagen!</string>
+    <string name="preparing_update">Installation wird vorbereitet...</string>
+</resources>
