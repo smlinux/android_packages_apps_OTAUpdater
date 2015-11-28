@@ -22,6 +22,6 @@
     <string name="build_ready">Update is ready to install</string>
     <string name="build_ready_description">Tap here to install.</string>
     <string name="download_failed">Download of the update failed or was chancelled.</string>
-    <string name="install_failed">Install failed!</string>
+    <string name="install_failed">Installation failed! Please reboot and try again or install update manually.</string>
     <string name="preparing_update">Preparing installation...</string>
 </resources>

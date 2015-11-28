@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.PowerManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -34,6 +35,13 @@ import de.mm20.otaupdater.R;
 
 public class InstallUpdateActivity extends Activity {
     private static final String TAG = "InstallUpdateActivity";
+    Runnable failedToast = new Runnable() {
+        @Override
+        public void run() {
+            Toast.makeText(InstallUpdateActivity.this, R.string.install_failed, Toast.LENGTH_LONG)
+                    .show();
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,6 +85,7 @@ public class InstallUpdateActivity extends Activity {
                 try {
                     int attempts = 0;
                     File file = new File("/cache/recovery/update.zip");
+                    File recoveryScript = new File("/cache/recovery/openrecoveryscript");
                     do {
                         attempts++;
                         Process process = Runtime.getRuntime().exec("sh");
@@ -91,7 +100,11 @@ public class InstallUpdateActivity extends Activity {
                         outputStream.close();
                         process.waitFor();
                     } while (!file.exists() && attempts <= 5);
-                    if (attempts > 5) return;
+                    if (attempts > 5) {
+                        runOnUiThread(failedToast);
+                        finish();
+                        return;
+                    }
                     PowerManager powerManager = (PowerManager)
                             getSystemService(Context.POWER_SERVICE);
                     powerManager.reboot("recovery");

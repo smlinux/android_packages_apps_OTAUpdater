@@ -23,6 +23,6 @@
     <string name="build_ready">Update steht zur Installation bereit</string>
     <string name="build_ready_description">Für Installation hier tippen.</string>
     <string name="download_failed">Download des Updates ist fehlgeschlagen oder wurde abgebrochen!</string>
-    <string name="install_failed">Installation fehlgeschlagen!</string>
+    <string name="install_failed">Installation fehlgeschlagen! Bitte neustarten und erneut versuchen, oder Update manuell installieren!</string>
     <string name="preparing_update">Installation wird vorbereitet...</string>
 </resources>

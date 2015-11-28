@@ -108,7 +108,7 @@ public class CheckForUpdateReceiver extends BroadcastReceiver {
 
                 for (int i = mFileNames.size() - 1; i >= 0; i--) {
                     if (compareBuildDates(mFileNames.get(i)) == -1 || (mTypes.get(i).equals("patch")
-                            && mPatchLevel.get(i) <= getSystemPatchLevel() &&
+                            && mPatchLevel.get(i) <= getSystemPatchLevel() ||
                             compareBuildDates(mFileNames.get(i)) != 0)) {
                         //Delete builds which are older than the installed one
                         File file = new File(Environment.getExternalStorageDirectory() +
@@ -125,6 +125,15 @@ public class CheckForUpdateReceiver extends BroadcastReceiver {
                         mPatchLevel.remove(i);
                     }
                 }
+                PreferenceManager.getDefaultSharedPreferences(mContext)
+                        .edit()
+                        .putString("build_name_list", asString(mNames))
+                        .putString("file_name_list", asString(mFileNames))
+                        .putString("build_uri_list", asString(mUris))
+                        .putString("md5_sum_list", asString(mMD5Sums))
+                        .putString("type_list", asString(mTypes))
+                        .putLong("updates_last_checked", System.currentTimeMillis())
+                        .apply();
             } catch (java.io.IOException | XmlPullParserException e) {
                 Log.e(TAG, "Failed to fetch builds: " + e.getClass().getName());
             }
@@ -148,15 +157,6 @@ public class CheckForUpdateReceiver extends BroadcastReceiver {
                         mContext.getSystemService(Context.NOTIFICATION_SERVICE);
                 manager.notify(0, builder.build());
             }
-            PreferenceManager.getDefaultSharedPreferences(mContext)
-                    .edit()
-                    .putString("build_name_list", asString(mNames))
-                    .putString("file_name_list", asString(mFileNames))
-                    .putString("build_uri_list", asString(mUris))
-                    .putString("md5_sum_list", asString(mMD5Sums))
-                    .putString("type_list", asString(mTypes))
-                    .putLong("updates_last_checked", System.currentTimeMillis())
-                    .apply();
         }
 
         private String asString(ArrayList<String> list) {
