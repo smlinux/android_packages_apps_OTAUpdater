@@ -108,8 +108,8 @@ public class CheckForUpdateReceiver extends BroadcastReceiver {
 
                 for (int i = mFileNames.size() - 1; i >= 0; i--) {
                     if (compareBuildDates(mFileNames.get(i)) == -1 || (mTypes.get(i).equals("patch")
-                            && mPatchLevel.get(i) <= getSystemPatchLevel() ||
-                            compareBuildDates(mFileNames.get(i)) != 0)) {
+                            && (mPatchLevel.get(i) <= getSystemPatchLevel() ||
+                            compareBuildDates(mFileNames.get(i)) != 0))) {
                         //Delete builds which are older than the installed one
                         File file = new File(Environment.getExternalStorageDirectory() +
                                 "/cmupdater/" + mFileNames.get(i));
