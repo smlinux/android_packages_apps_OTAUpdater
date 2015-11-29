@@ -176,6 +176,7 @@ public class StartDownloadReceiver extends BroadcastReceiver {
                 Toast.makeText(mContext, R.string.build_ready, Toast.LENGTH_LONG).show();
                 Intent i = new Intent(mContext, InstallUpdateActivity.class);
                 i.putExtra("installed_deprecated", mInstallDeprecated);
+                i.putExtra("file_name", mFileName);
                 mBuilder.setOngoing(false)
                         .setUsesChronometer(true)
                         .setContentTitle(mContext.getString(R.string.build_ready))
