@@ -41,7 +41,7 @@ public class InstallUpdateActivity extends Activity {
             Toast.makeText(InstallUpdateActivity.this, R.string.install_failed, Toast.LENGTH_LONG)
                     .show();
         }
-    }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
