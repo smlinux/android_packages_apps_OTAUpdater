@@ -49,7 +49,6 @@ public class InstallUpdateActivity extends Activity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         int installedDeprecated = getIntent().getIntExtra("installed_deprecated", 1);
         int msgId = R.string.confirm_install;
-        //if (!isSeLinuxEnforcing() || setSeLinuxPermissive()) {
         if (installedDeprecated == 0) msgId = R.string.confirm_install_installed;
         else if (installedDeprecated == -1) msgId = R.string.confirm_install_deprecated;
         builder.setMessage(msgId)
