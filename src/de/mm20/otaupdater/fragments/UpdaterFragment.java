@@ -69,7 +69,7 @@ public class UpdaterFragment extends PreferenceFragment
         }
         mCheckUpdates.setSummary(lastChecked);
         mCheckUpdates.setOnPreferenceClickListener(this);
-        if(mFileNames.length < 1) return;
+        if(mFileNames.length < 1 || mFileNames[0].isEmpty()) return;
         for (int i = 0; i < mFileNames.length; i++) {
             UpdaterPreference pref = new UpdaterPreference(mContext, mNames[i], mFileNames[i],
                     mUris[i], mMD5Sums[i], mTypes[i], compareBuildDates(mFileNames[i]));
