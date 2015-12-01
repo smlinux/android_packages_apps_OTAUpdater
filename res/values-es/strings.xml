@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">System updates</string>
+    <string name="fetch_failed">Failed to fetch builds. Please check your network connection.
+    </string>
+    <string name="updates">Updates</string>
+    <string name="confirm_install">Update package is ready to install. Do you want to install it
+        now?
+    </string>
+    <string name="confirm_install_installed">This update package is already installed. Do you want to reinstall it?</string>
+    <string name="confirm_install_deprecated">This update package is deprecated. Installing it may cause crashes or an unstable system. Do you really want to install it?</string>
+    <string name="system_update">System update</string>
+    <string name="checking_for_updates">Checking for updates...</string>
+    <string name="installed">(installed)</string>
+    <string name="deprecated">(deprecated)</string>
+    <string name="downloading_update">Downloading update...</string>
+    <string name="new_updates">System update</string>
+    <string name="new_update_info">A system update is available!</string>
+    <string name="search_updates">Check for updates now</string>
+    <string name="never">never</string>
+    <string name="last_checked">Last checked:</string>
+    <string name="build_ready">Update is ready to install</string>
+    <string name="build_ready_description">Tap here to install.</string>
+    <string name="download_failed">Download of the update failed or was chancelled.</string>
+    <string name="install_failed">Installation failed! Please reboot and try again or install update manually.</string>
+    <string name="preparing_update">Preparing installation...</string>
+</resources>
