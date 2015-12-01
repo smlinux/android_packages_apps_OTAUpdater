@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Aggiornamenti di sistema</string>
+    <string name="fetch_failed">Impossibile contattare il server. Controllare la propria connessione a internet.
+    </string>
+    <string name="updates">Aggiornamenti</string>
+    <string name="confirm_install">L'aggiornamento è pronto per l'installazione. Vuoi installarlo ora?
+    </string>
+    <string name="confirm_install_installed">Questo aggiornamento è già installato. Vuoi reinstallarlo?</string>
+    <string name="confirm_install_deprecated">Questo aggiornamento è obsoleto. L'installazione può causare crash o un sistema instabile. Vuoi davvero installarlo?</string>
+    <string name="system_update">Aggiornamento di sistema</string>
+    <string name="checking_for_updates">Verifica aggiornamenti in corso...</string>
+    <string name="installed">(installato)</string>
+    <string name="deprecated">(obsoleto)</string>
+    <string name="downloading_update">Download dell'aggiornamento in corso...</string>
+    <string name="new_updates">Aggiornamento di sistema</string>
+    <string name="new_update_info">È disponibile un aggiornamento di sistema!</string>
+    <string name="search_updates">Controlla aggiornamenti ora</string>
+    <string name="never">mai</string>
+    <string name="last_checked">Ultimo controllo:</string>
+    <string name="build_ready">Update è pronto per l'installazione</string>
+    <string name="build_ready_description">Premere qui per installare.</string>
+    <string name="download_failed">Il download dell'aggiornamento è fallito o è stato cancellato.</string>
+    <string name="install_failed">Installazione fallita! Riavviare e riprovare oppure installare l'aggiornamento manualmente.</string>
+    <string name="preparing_update">Preparazione dell'installazione in corso...</string>
+</resources>
