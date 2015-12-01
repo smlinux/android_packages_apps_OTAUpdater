@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sistem Güncellemesi</string>
+    <string name="confirm_install">Bir sistem güncellemesi yüklenmeye hazır. Şimdi yüklemek istiormusun ?</string>
+    <string name="confirm_install_installed">Bu güncelleştirme zaten yüklenmiştir. Bunu yeniden yüklemek istiyor musunuz?</string>
+    <string name="confirm_install_deprecated">Bu güncelleştirme kullanılmıyor. O çöker ve istikrarlı bir sisteme yol yükleyebilirsiniz. Gerçekten yüklemek istiyor musunuz?</string>
+    <string name="fetch_failed">Bilgi alınıyor başarısız oldu. İnternet bağlantınızı kontrol edin</string>
+    <string name="system_update">Sistem Güncellemesi</string>
+    <string name="updates">Güncellemesi</string>
+    <string name="checking_for_updates">Güncellemeleri Kontrol Et ...</string>
+    <string name="installed"> (yüklü)</string>
+    <string name="deprecated"> (eskimis)</string>
+    <string name="downloading_update">Güncelleştirme indiriliyor ...</string>
+    <string name="new_updates">Sistem Güncellemesi</string>
+    <string name="new_update_info">Sistem Güncellemesi var!</string>
+    <string name="search_updates">Şimdi güncelleştirmeleri ara</string>
+    <string name="never">hiç</string>
+    <string name="last_checked">Son aramalar:</string>
+    <string name="build_ready">Güncelleştirme yüklemek için hazır</string>
+    <string name="build_ready_description">Güncelleme için buraya dokunun.</string>
+    <string name="download_failed">İndir güncellemesi başarısız oldu ya da iptal edildi!</string>
+    <string name="install_failed">Kurulum Başarısız! Yeniden başlatın ve tekrar deneyin veya el ile güncelleştirmeyi yükle!</string>
+    <string name="preparing_update">Yüklemeye hazırlanıyor ...</string>
+</resources>
