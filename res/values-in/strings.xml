@@ -1,0 +1,25 @@
+<resources>
+<string name="app_name">Pembaruan sistem</string>
+<string name="fetch_failed">Gagal mengambil file. Periksa koneksi data.
+</string>
+<string name="updates">Pembaruan</string>
+<string name="confirm_install">Paket pembaruan siap diinstall. Ingin menginstall sekarang?
+</string>
+<string name="confirm_install_installed">Paket pembaruan sudah terinstall. Ingin menginstall ulang?</string>
+<string name="confirm_install_deprecated">Paket pembaruan ini terlalu jadul. Menginstall ini mungkin alan menimbulkan masalah dan ketidakstabilan sistem. Yakin ingin menginstall?</string>
+<string name="system_update">Pembaruan sistem</string>
+<string name="checking_for_updates">Periksa pembaruan...</string>
+<string name="installed">(terinstall)</string>
+<string name="deprecated">(jadul)</string>
+<string name="downloading_update">Mendownload pembaruan...</string>
+<string name="new_updates">Pembaruan sistem</string>
+<string name="new_update_info">Pembaruan sistem tersedia!</string>
+<string name="search_updates">Periksa pembaruaan sekarang</string>
+<string name="never">tidak pernah</string>
+<string name="last_checked">Pemeriksaan terakhir:</string>
+<string name="build_ready">Pembaruan siap diinstall</string>
+<string name="build_ready_description">Tekan disini untuk menginstall.</string>
+<string name="download_failed">Download pembaruan gagal atau telah dibatalkan.</string>
+<string name="install_failed">Penginstallan gagal! Reboot dan coba lagi, atau perbarui secara manual.</string>
+<string name="preparing_update">Menyiapkan penginstallan...</string>
+</resources>
