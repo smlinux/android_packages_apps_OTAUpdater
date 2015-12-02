@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Mise a jour système</string>
+  <string name="fetch_failed">Impossible de récupérer le contenu. Vérifiez votre connexion Internet.    </string>
+  <string name="updates">Mises a jour</string>
+  <string name="confirm_install">Une mise a jour est disponible, voulez-vous la telecharger maintenant ?    </string>
+  <string name="confirm_install_installed">Cette mise à jour est déjà installée. Voulez-vous la réinstaller ?</string>
+  <string name="confirm_install_deprecated">Cette mise a jour est obsolète. L\'installer peu causer des chrashs ou rendre votre système instable. Voulez-vous vraiment l\'installer ?</string>
+  <string name="system_update">Mise à jour système</string>
+  <string name="checking_for_updates">Recherche de mise à jour...</string>
+  <string name="installed">(Installé)</string>
+  <string name="deprecated">(obsolète)</string>
+  <string name="downloading_update">Téléchargement mise à jour...</string>
+  <string name="new_updates">Mise à jour système</string>
+  <string name="new_update_info">Une mise à jour du système est disponible !</string>
+  <string name="search_updates">Recherche de mises à jour maintenant</string>
+  <string name="never">jamais</string>
+  <string name="last_checked">Dernière vérification :</string>
+  <string name="build_ready">Mise à jour est prêt à installer</string>
+  <string name="build_ready_description">Cliquez ici pour l\'installer.</string>
+  <string name="download_failed">Le téléchargement de la mise à jour a échoué ou a été annulé.</string>
+  <string name="install_failed">Échec de l\'installation ! Redémarrez et réessayez ou installer la mise à jour manuellement.</string>
+  <string name="preparing_update">Préparation de l\'installation...</string>
+</resources>
