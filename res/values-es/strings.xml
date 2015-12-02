@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">Actualizaciones de sistema</string>
-    <string name="fetch_failed">Falla al buscar paquetes. Por favor revise su conexión a la red.
+    <string name="app_name">Actualización de sistema</string>
+    <string name="fetch_failed">No se ha podido buscar paquetes. Por favor revise su conexión a la red.
     </string>
     <string name="updates">Actualizaciones</string>
-    <string name="confirm_install">Paquete de actualización listo para instalar. ¿Quiere instalarlo ahora?
+    <string name="confirm_install">Actualización lista para instalar. ¿Quiere instalarla ahora?
     </string>
-    <string name="confirm_install_installed">Este paquete de actualización ya está instalado. ¿Quiere volver a instalarlo?</string>
+    <string name="confirm_install_installed">Esta actualización ya está instalada. ¿Quiere volver a instalarla?</string>
     <string name="system_update">Actualizaciones de sistema</string>
     <string name="checking_for_updates">Buscando actualizaciones...</string>
     <string name="installed">(instalado)</string>
