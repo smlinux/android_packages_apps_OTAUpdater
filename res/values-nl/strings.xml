@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Systeemupdates</string>
+  <string name="fetch_failed">Ophalen nieuwe builds mislukt. Controleer netwerkverbinding.    </string>
+  <string name="updates">Updates</string>
+  <string name="confirm_install">Updatepakket is klaar om te installeren. Wil je het nu installeren?    </string>
+  <string name="confirm_install_installed">Dit updatepakket is al geïnstalleerd. Wil je het opnieuw installeren?</string>
+  <string name="confirm_install_deprecated">Dit updatepakket is verouderd. Installeren van dit pakket kan crashes of een onstabiel systeem veroorzaken. Wil je het echt installeren?</string>
+  <string name="system_update">Systeemupdate</string>
+  <string name="checking_for_updates">Controleren op updates...</string>
+  <string name="installed">(geïnstalleerd)</string>
+  <string name="deprecated">(verouderd)</string>
+  <string name="downloading_update">Update downloaden...</string>
+  <string name="new_updates">Systeemupdate</string>
+  <string name="new_update_info">Een systeemupdate is beschikbaar!</string>
+  <string name="search_updates">Controleer nu op updates</string>
+  <string name="never">nooit</string>
+  <string name="last_checked">Laatste controle:</string>
+  <string name="build_ready">Update is gereed om te installeren</string>
+  <string name="build_ready_description">Klik hier om te installeren.</string>
+  <string name="download_failed">Het downloaden van de update is niet gelukt of geannuleerd.</string>
+  <string name="install_failed">Installatie is mislukt! Herstart en probeer opnieuw of installeer de update handmatig.</string>
+  <string name="preparing_update">Installatie voorbereiden...</string>
+</resources>
