@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">עדכוני מערכת</string>
+  <string name="fetch_failed">הכשל להביא בונה. נא לבדוק את קשר הרשת שלך.    </string>
+  <string name="updates">עדכונים</string>
+  <string name="confirm_install">עדכן חבילה מוכנה להתקין. האם אתה רוצה להתקין את זה עכשיו?    </string>
+  <string name="confirm_install_installed">החבילת עדכון הזאת כבר מותקנת. האם אתה רוצה להתקין מחדש את זה?</string>
+  <string name="confirm_install_deprecated">החבילת עדכון הזאת מגונה. להתקין את זה יכול לגרום התרסקויות או מערכת לא יציבה. האם אתה באמת רוצה להתקין את זה?</string>
+  <string name="system_update">עדכון מערכת</string>
+  <string name="checking_for_updates">לבדוק לעדכונים...</string>
+  <string name="installed">( התקין)</string>
+  <string name="deprecated">(שלו)</string>
+  <string name="downloading_update">להוריד עדכון...</string>
+  <string name="new_updates">עדכון מערכת</string>
+  <string name="new_update_info">עדכון מערכת ניתן להשיג!</string>
+  <string name="search_updates">בדוק לעדכונים עכשיו</string>
+  <string name="never">מעולם לא</string>
+  <string name="last_checked">בדוק אחרון:</string>
+  <string name="build_ready">עדכון מוכן להתקין</string>
+  <string name="build_ready_description">טפוח כאן להתקין.</string>
+  <string name="download_failed">הורדה של העדכון נכשל או היה את צ\'אנכאלאד.</string>
+  <string name="install_failed">התקנה נכשלה! נא מאתחל מחדש וניסיון שוב או מתקין עדכון ביד.</string>
+  <string name="preparing_update">להכין התקנה...</string>
+</resources>
