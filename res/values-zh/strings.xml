@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">系统更新</string>
+  <string name="fetch_failed">无法获取生成。请检查您的网络连接。    </string>
+  <string name="updates">更新</string>
+  <string name="confirm_install">更新包是准备好进行安装。你想要现在安装它吗?    </string>
+  <string name="confirm_install_installed">已安装此更新程序包。你想要重新安装它吗?</string>
+  <string name="confirm_install_deprecated">此更新程序包已被否决。安装它可能导致崩溃或不稳定的系统。你真的想要安装它吗?</string>
+  <string name="system_update">系统更新</string>
+  <string name="checking_for_updates">正在检查更新...</string>
+  <string name="installed">(安装)</string>
+  <string name="deprecated">(已弃用)</string>
+  <string name="downloading_update">正在下载更新...</string>
+  <string name="new_updates">系统更新</string>
+  <string name="new_update_info">系统更新是可用!</string>
+  <string name="search_updates">检查更新现在</string>
+  <string name="never">永远不会</string>
+  <string name="last_checked">上次检查:</string>
+  <string name="build_ready">更新程序已准备安装</string>
+  <string name="build_ready_description">点击此处以安装。</string>
+  <string name="download_failed">此更新的下载失败，或者是 取消</string>
+  <string name="install_failed">安装失败! 请重新启动并再试一次或手动安装更新。</string>
+  <string name="preparing_update">正在准备安装...</string>
+</resources>
