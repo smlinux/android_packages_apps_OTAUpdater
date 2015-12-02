@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Atualizações do sistema</string>
+  <string name="fetch_failed">Falha ao buscar compilações. Por favor, verifique sua conexão de rede.    </string>
+  <string name="updates">Atualizações</string>
+  <string name="confirm_install">Pacote de atualização está pronto para instalar. Você quer instalá-lo agora?    </string>
+  <string name="confirm_install_installed">Este pacote de atualização já está instalada. Você quer reinstalá-lo?</string>
+  <string name="confirm_install_deprecated">Este pacote de atualização está obsoleto. Instalá-lo pode causar falhas ou um sistema instável. Você realmente quer instalá-lo?</string>
+  <string name="system_update">Atualização do sistema</string>
+  <string name="checking_for_updates">Verificação de atualizações...</string>
+  <string name="installed">(instalado)</string>
+  <string name="deprecated">(obsoleto)</string>
+  <string name="downloading_update">Download atualização...</string>
+  <string name="new_updates">Atualização do sistema</string>
+  <string name="new_update_info">Está disponível uma actualização de sistema!</string>
+  <string name="search_updates">Verificar se há atualizações agora</string>
+  <string name="never">nunca</string>
+  <string name="last_checked">Última vez vi:</string>
+  <string name="build_ready">Atualização está pronta para instalar</string>
+  <string name="build_ready_description">Toque aqui para instalar.</string>
+  <string name="download_failed">Download da atualização falhou ou foi chancelled.</string>
+  <string name="install_failed">Instalação falhada! Por favor, reinicie e tente novamente ou instalar a atualização manualmente.</string>
+  <string name="preparing_update">Preparando a instalação...</string>
+</resources>
