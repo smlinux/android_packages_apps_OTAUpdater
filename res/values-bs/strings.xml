@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Azuriranje sistema</string>
+  <string name="fetch_failed">Greska pri preuzimanju informacija sa servera. Proverite vasu internet konekciju.    </string>
+  <string name="updates">Azuriranja</string>
+  <string name="confirm_install">Azurirani paket je spreman za instalaciju. Da li zelite sada da ga instalirate?    </string>
+  <string name="confirm_install_installed">Ovaj paket dopune je vec instaliran. Da li zelite da ga ponovo instalirate?</string>
+  <string name="confirm_install_deprecated">Ovaj paket azuriranja je zastareo. Instaliranje moze izazvati padove ili nestabilan sistem. Da li zaista zelite da ga instalirate?</string>
+  <string name="system_update">Azuriranje softvera</string>
+  <string name="checking_for_updates">Provera novih dopuna...</string>
+  <string name="installed">(instaliran)</string>
+  <string name="deprecated">(zastareo)</string>
+  <string name="downloading_update">Preuzimanje dopune...</string>
+  <string name="new_updates">Azuriranje softvera</string>
+  <string name="new_update_info">Nova verzija softvera je dostupna!</string>
+  <string name="search_updates">Proveri sada</string>
+  <string name="never">nikada</string>
+  <string name="last_checked">Poslednja provera:</string>
+  <string name="build_ready">Dopuna je spremna za instalaciju</string>
+  <string name="build_ready_description">Dodirni ovde da biste pokrenuli instalaciju.</string>
+  <string name="download_failed">Preuzimanje dopune nije uspelo ili je prekinuto.</string>
+  <string name="install_failed">Instalacija nije uspela. ponovo pokreni sistem a zatim pokusaj ponovo ili instaliraj dopunu rucno.</string>
+  <string name="preparing_update">Priprema instalacije...</string>
+</resources>

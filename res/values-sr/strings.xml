@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Ажурирање система</string>
+  <string name="fetch_failed">Грешка при преузимању информација са сервера. Проверите вашу интернет конекцију.</string>
+  <string name="updates">Ажурирања</string>
+  <string name="confirm_install">Ажурирани пакет је спреман за инсталацију. Да ли желите сада да га инсталирате? </string>
+  <string name="confirm_install_installed">Овај пакет допуне је већ инсталиран. Да ли желите да га поново инсталирате? </string>
+  <string name="confirm_install_deprecated">Овај пакет ажурирања је застарео. Инсталирање може изазвати падове или нестабилан систем. Да ли заиста желите да га инсталирате?</string>
+  <string name="system_update">Ажурирање софтвера</string>
+  <string name="checking_for_updates">Провера нових допуна...</string>
+  <string name="installed">(инсталиран)</string>
+  <string name="deprecated">(застарела)</string>
+  <string name="downloading_update">Преузимање...</string>
+  <string name="new_updates">Ажурирање софтвера</string>
+  <string name="new_update_info">Нова верзија софтвера је доступна!</string>
+  <string name="search_updates">Провери сада</string>
+  <string name="never">Никада</string>
+  <string name="last_checked">Последња провера:</string>
+  <string name="build_ready">Допуна је спремна за инсталацију</string>
+  <string name="build_ready_description">Додирни овде да бисте покренули инсталацију.</string>
+  <string name="download_failed">Преузимање допуне није успело или је прекинуто.</string>
+  <string name="install_failed">Инсталација није успела. Поново покрени систем a затим покушај поново или инсталирај допуну ручно.</string>
+  <string name="preparing_update">Припрема инсталације...</string>
+</resources>

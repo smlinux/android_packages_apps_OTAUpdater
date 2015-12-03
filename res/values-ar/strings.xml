@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">تحديثات النظام</string>
+  <string name="fetch_failed">فشل في إحضار البيانات. الرجاء التحقق من اتصال الشبكة الخاص بك.    </string>
+  <string name="updates">التحديثات</string>
+  <string name="confirm_install">حزمة التحديث جاهزة للتثبيت. هل تريد تثبيته الآن؟    </string>
+  <string name="confirm_install_installed">تم مسبقاً تثبيت حزمة التحديث هذه. هل تريد إعادة تثبيته؟</string>
+  <string name="confirm_install_deprecated">حزمة التحديث هذه تم إهمالها.تثبيتها قد يؤدي الى مشاكل وعدم استقرار في النظام.هل تريد حقا تثبيته؟</string>
+  <string name="system_update">تحديثات النظام</string>
+  <string name="checking_for_updates">جاري التحقق من وجود تحديثات...</string>
+  <string name="installed">(مثبت)</string>
+  <string name="deprecated">(مهملة)</string>
+  <string name="downloading_update">جاري تحميل التحديث...</string>
+  <string name="new_updates">تحديثات النظام</string>
+  <string name="new_update_info">يوجد تحديث متوفر للنظام!</string>
+  <string name="search_updates">جاري التحقق من وجود تحديثات الآن</string>
+  <string name="never">ابدأ</string>
+  <string name="last_checked">اخر مرّة تم التأكد:</string>
+  <string name="build_ready">التحديث جاهز للتثبيت</string>
+  <string name="build_ready_description">انقر هنا للتثبيت.</string>
+  <string name="download_failed">فشل في تحميل التحديث أو تم الغائه.</string>
+  <string name="install_failed">فشل التثبيت! الرجاء إعادة التشغيل وحاول مرة أخرى أو قم بتثبيت التحديث يدوياً.</string>
+  <string name="preparing_update">تحضير التثبيت...</string>
+</resources>
