@@ -142,7 +142,9 @@ public class CheckForUpdateReceiver extends BroadcastReceiver {
 
         @Override
         protected void onPostExecute(Integer result) {
-            if (mFileNames.size() > 1) {
+            boolean notifyUpdate = PreferenceManager.getDefaultSharedPreferences(mContext)
+                    .getBoolean("notify_update", true);
+            if (notifyUpdate && mFileNames.size() > 1) {
                 Notification.Builder builder = new Notification.Builder(mContext);
                 PendingIntent intent = PendingIntent
                         .getActivity(mContext, 0,

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
--<resources>
+<resources>
 <string name="app_name">Обновления системы</string>
 <string name="fetch_failed">Не удалось загрузить сборки. Пожалуйста, проверьте сетевое подключение. </string>
 <string name="updates">Обновления</string>

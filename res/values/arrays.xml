@@ -1,0 +1,17 @@
+<resources>
+    <string-array name="update_interval_entries" translatable="false">
+        <item>@string/check_never</item>
+        <item>@string/check_on_boot</item>
+        <item>@string/check_every_hour</item>
+        <item>@string/check_daily</item>
+        <item>@string/check_weekly</item>
+    </string-array>
+
+    <string-array name="update_interval_values" translatable="false">
+        <item>-1</item>
+        <item>0</item>
+        <item>60</item>
+        <item>1440</item>
+        <item>10080</item>
+    </string-array>
+</resources>

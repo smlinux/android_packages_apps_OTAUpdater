@@ -17,11 +17,14 @@
 package de.mm20.otaupdater.fragments;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemProperties;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
@@ -37,7 +40,7 @@ import de.mm20.otaupdater.widget.UpdaterPreference;
 
 public class UpdaterFragment extends PreferenceFragment
         implements Preference.OnPreferenceClickListener,
-        SharedPreferences.OnSharedPreferenceChangeListener {
+        SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceChangeListener {
     private static final String TAG = "OTAUpdater";
     PreferenceCategory mUpdatesCategory;
     private String[] mFileNames;
@@ -46,6 +49,7 @@ public class UpdaterFragment extends PreferenceFragment
     private String[] mUris;
     private String[] mTypes;
     private Preference mCheckUpdates;
+    private ListPreference mInterval;
     private ArrayList<UpdaterPreference> mUpdaterPreferences;
 
     private Context mContext;
@@ -56,6 +60,8 @@ public class UpdaterFragment extends PreferenceFragment
         addPreferencesFromResource(R.xml.updater);
         mUpdaterPreferences = new ArrayList<>();
         mUpdatesCategory = (PreferenceCategory) findPreference("updater_category");
+        mInterval = (ListPreference) findPreference("interval");
+        mInterval.setOnPreferenceChangeListener(this);
         mCheckUpdates = findPreference("search_updates");
         long lastCheckedTime = PreferenceManager.getDefaultSharedPreferences(getActivity())
                 .getLong("updates_last_checked", -1);
@@ -69,7 +75,7 @@ public class UpdaterFragment extends PreferenceFragment
         }
         mCheckUpdates.setSummary(lastChecked);
         mCheckUpdates.setOnPreferenceClickListener(this);
-        if(mFileNames.length < 1 || mFileNames[0].isEmpty()) return;
+        if (mFileNames.length < 1 || mFileNames[0].isEmpty()) return;
         for (int i = 0; i < mFileNames.length; i++) {
             UpdaterPreference pref = new UpdaterPreference(mContext, mNames[i], mFileNames[i],
                     mUris[i], mMD5Sums[i], mTypes[i], compareBuildDates(mFileNames[i]));
@@ -153,6 +159,7 @@ public class UpdaterFragment extends PreferenceFragment
                     .getString("md5_sum_list", "").split(",");
             mTypes = PreferenceManager.getDefaultSharedPreferences(mContext)
                     .getString("type_list", "").split(",");
+            if (mNames == null || mNames[0].isEmpty()) return;
             for (int i = 0; i < mFileNames.length; i++) {
                 UpdaterPreference pref = new UpdaterPreference(mContext, mNames[i], mFileNames[i],
                         mUris[i], mMD5Sums[i], mTypes[i], compareBuildDates(mFileNames[i]));
@@ -172,5 +179,21 @@ public class UpdaterFragment extends PreferenceFragment
                 }
             }
         }
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object o) {
+        //mInterval is the only preference calling onPreferenceChange
+        Intent i = new Intent("de.mm20.otaupdater.CHECK_UPDATES");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(mContext, 0, i, 0);
+        AlarmManager manager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
+        if (o.equals("-1") || o.equals("0")) {
+            manager.cancel(pendingIntent);
+            return true;
+        }
+        int interval = Integer.parseInt((String) o) * 60000;
+        long now = System.currentTimeMillis();
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, now + interval, interval, pendingIntent);
+        return true;
     }
 }

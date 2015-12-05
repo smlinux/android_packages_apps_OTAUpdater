@@ -24,4 +24,11 @@
     <string name="download_failed">Download of the update failed or was chancelled.</string>
     <string name="install_failed">Installation failed! Please reboot and try again or install update manually.</string>
     <string name="preparing_update">Preparing installation...</string>
+    <string name="check_never">Never</string>
+    <string name="check_on_boot">On every boot</string>
+    <string name="check_every_hour">Every hour</string>
+    <string name="check_daily">Daily</string>
+    <string name="check_weekly">Weekly</string>
+    <string name="notify_update">Notify about new updates</string>
+    <string name="update_interval">Interval</string>
 </resources>

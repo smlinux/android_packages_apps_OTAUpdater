@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
         xmlns:android="http://schemas.android.com/apk/res/android">
-    <Preference android:key="search_updates" android:title="@string/search_updates"/>
+    <Preference android:key="search_updates" android:title="@string/search_updates"
+                android:defaultValue="true"/>
+    <SwitchPreference android:key="notify_update" android:title="@string/notify_update"
+            android:defaultValue="60"/>
+    <ListPreference android:key="interval" android:title="@string/update_interval"
+                    android:summary="%s" android:entries="@array/update_interval_entries"
+                    android:entryValues="@array/update_interval_values"/>
     <PreferenceCategory android:key="updater_category" android:title="@string/updates"/>
 
 </PreferenceScreen>

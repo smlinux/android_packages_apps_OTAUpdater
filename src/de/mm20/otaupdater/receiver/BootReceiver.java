@@ -27,21 +27,24 @@ import java.io.File;
 public class BootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        Intent i = new Intent("de.mm20.otaupdater.CHECK_UPDATES");
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, i, 0);
-        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        long now = System.currentTimeMillis();
-        int interval = PreferenceManager.getDefaultSharedPreferences(context)
-                .getInt("update_check_intervall", 60) * 60000;
         File file = new File(Environment.getExternalStorageDirectory() +
                 "/cmupdater/cm-download.part");
         //Assuming there is no download currently running when this is called, delete download file,
         //if the previous download failed.
-        if(file.exists()) file.delete();
+        if (file.exists()) file.delete();
         PreferenceManager.getDefaultSharedPreferences(context).edit()
                 .putString("currently_downloading", "")
                 .putBoolean("abort_download", false).apply();
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, now + interval, interval, pendingIntent);
+        String updateInterval = PreferenceManager.getDefaultSharedPreferences(context)
+                .getString("interval", "60");
+        if (updateInterval.equals("-1")) return;
+        Intent i = new Intent("de.mm20.otaupdater.CHECK_UPDATES");
         context.sendBroadcast(i);
+        if (updateInterval.equals("0")) return;
+            int interval = Integer.parseInt(updateInterval) * 60000;
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, i, 0);
+        long now = System.currentTimeMillis();
+        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, now + interval, interval, pendingIntent);
     }
 }

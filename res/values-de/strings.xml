@@ -25,4 +25,11 @@
     <string name="download_failed">Download des Updates ist fehlgeschlagen oder wurde abgebrochen!</string>
     <string name="install_failed">Installation fehlgeschlagen! Bitte neustarten und erneut versuchen, oder Update manuell installieren!</string>
     <string name="preparing_update">Installation wird vorbereitet...</string>
+    <string name="check_never">Nie</string>
+    <string name="check_on_boot">Bei Systemstart</string>
+    <string name="check_every_hour">Jede Stunde</string>
+    <string name="check_daily">Täglich</string>
+    <string name="check_weekly">Wöchentlich</string>
+    <string name="update_interval">Intervall</string>
+    <string name="notify_update">Über neue Updates benachrichtigen</string>
 </resources>
