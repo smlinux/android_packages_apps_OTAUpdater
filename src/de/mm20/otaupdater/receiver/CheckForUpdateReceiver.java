@@ -48,6 +48,7 @@ public class CheckForUpdateReceiver extends BroadcastReceiver {
     private ArrayList<String> mMD5Sums;
     private ArrayList<String> mTypes;
     private ArrayList<Integer> mPatchLevel;
+    private ArrayList<String> mFileSizes;
     private String mBuildsListUri;
     private String mDevice;
     private Context mContext;
@@ -60,6 +61,7 @@ public class CheckForUpdateReceiver extends BroadcastReceiver {
         mMD5Sums = new ArrayList<>();
         mNames = new ArrayList<>();
         mUris = new ArrayList<>();
+        mFileSizes = new ArrayList<>();
         mTypes = new ArrayList<>();
         mPatchLevel = new ArrayList<>();
         mDevice = SystemProperties.get("ro.cm.device");
@@ -101,6 +103,7 @@ public class CheckForUpdateReceiver extends BroadcastReceiver {
                         mUris.add(parser.getAttributeValue(null, "uri"));
                         mMD5Sums.add(parser.getAttributeValue(null, "md5"));
                         mTypes.add(parser.getAttributeValue(null, "type"));
+                        mFileSizes.add(parser.getAttributeValue(null, "size"));
                         mPatchLevel.add(Integer.parseInt(parser
                                 .getAttributeValue(null, "patchlevel")));
                     }
@@ -121,6 +124,7 @@ public class CheckForUpdateReceiver extends BroadcastReceiver {
                         mMD5Sums.remove(i);
                         mUris.remove(i);
                         mNames.remove(i);
+                        mFileSizes.remove(i);
                         mTypes.remove(i);
                         mPatchLevel.remove(i);
                     }
@@ -131,6 +135,7 @@ public class CheckForUpdateReceiver extends BroadcastReceiver {
                         .putString("file_name_list", asString(mFileNames))
                         .putString("build_uri_list", asString(mUris))
                         .putString("md5_sum_list", asString(mMD5Sums))
+                        .putString("file_size_list", asString(mFileSizes))
                         .putString("type_list", asString(mTypes))
                         .putLong("updates_last_checked", System.currentTimeMillis())
                         .apply();

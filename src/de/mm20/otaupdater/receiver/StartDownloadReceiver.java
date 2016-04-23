@@ -38,6 +38,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DecimalFormat;
 
 import de.mm20.otaupdater.R;
 import de.mm20.otaupdater.activities.InstallUpdateActivity;
@@ -74,6 +75,8 @@ public class StartDownloadReceiver extends BroadcastReceiver {
     }
 
     class DownloadFileAsyncTask extends AsyncTask<String, Integer, Boolean> {
+        private long mFileSize;
+        private long mDownloadedSize;
 
         @Override
         protected void onPreExecute() {
@@ -90,7 +93,9 @@ public class StartDownloadReceiver extends BroadcastReceiver {
                     mContext.getSystemService(Context.NOTIFICATION_SERVICE);
             mManager.notify(1, mBuilder.build());
             PreferenceManager.getDefaultSharedPreferences(mContext).edit()
-                    .putString("currently_downloading", mFileName).apply();
+                    .putString("currently_downloading", mFileName)
+                    .putBoolean("abort_download", false)
+                    .putInt("dl_progress_current", -1).apply();
         }
 
         @Override
@@ -106,7 +111,7 @@ public class StartDownloadReceiver extends BroadcastReceiver {
                     connection = (HttpURLConnection) url.openConnection();
                 }
                 connection.connect();
-                int fileLenght = connection.getContentLength();
+                mFileSize = connection.getContentLength();
                 InputStream input = new BufferedInputStream(url.openStream(), 8192);
                 OutputStream output = new FileOutputStream(Environment
                         .getExternalStorageDirectory() + "/cmupdater/cm-download.part");
@@ -117,9 +122,10 @@ public class StartDownloadReceiver extends BroadcastReceiver {
                 boolean abortDownload = false;
                 while ((count = input.read(data)) != -1 && !abortDownload) {
                     total += count;
-                    percentProgress = (int) ((total * 100) / fileLenght);
+                    percentProgress = (int) ((total * 100) / mFileSize);
                     if (percentProgress > shownPercentProgress) {
                         shownPercentProgress = percentProgress;
+                        mDownloadedSize = total;
                         publishProgress(percentProgress);
                     }
 
@@ -132,8 +138,9 @@ public class StartDownloadReceiver extends BroadcastReceiver {
                 input.close();
                 publishProgress(100);
 
-                if (!mMd5.equals(MD5.getMd5(Environment.getExternalStorageDirectory() +
-                        "/cmupdater/cm-download.part"))) {
+                if (abortDownload || !mMd5.equals(MD5.getMd5(
+                        Environment.getExternalStorageDirectory() +
+                                "/cmupdater/cm-download.part"))) {
                     File file = new File(Environment.getExternalStorageDirectory() + "/cmupdater/" +
                             "cm-download.part");
                     file.delete();
@@ -161,9 +168,20 @@ public class StartDownloadReceiver extends BroadcastReceiver {
             }
         }
 
+        private String fileSizeAsString(long size) {
+            if (size <= 0) return "0";
+            final String[] units = new String[]{"B", "kB", "MB", "GB", "TB"};
+            int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
+            return new DecimalFormat("#,##0.#").format(size / Math.pow(1024, digitGroups)) + " " +
+                    units[digitGroups];
+
+        }
+
         @Override
         protected void onProgressUpdate(Integer... values) {
-            mBuilder.setProgress(100, values[0], false);
+            mBuilder.setProgress(100, values[0], false)
+                    .setContentText(fileSizeAsString(mDownloadedSize) + "/" +
+                            fileSizeAsString(mFileSize));
             mManager.notify(1, mBuilder.build());
             PreferenceManager.getDefaultSharedPreferences(mContext).edit()
                     .putInt("dl_progress_current", values[0]).apply();

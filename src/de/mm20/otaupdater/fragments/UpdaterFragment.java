@@ -48,6 +48,7 @@ public class UpdaterFragment extends PreferenceFragment
     private String[] mNames;
     private String[] mUris;
     private String[] mTypes;
+    private String[] mFileSizes;
     private Preference mCheckUpdates;
     private ListPreference mInterval;
     private ArrayList<UpdaterPreference> mUpdaterPreferences;
@@ -78,7 +79,8 @@ public class UpdaterFragment extends PreferenceFragment
         if (mFileNames.length < 1 || mFileNames[0].isEmpty()) return;
         for (int i = 0; i < mFileNames.length; i++) {
             UpdaterPreference pref = new UpdaterPreference(mContext, mNames[i], mFileNames[i],
-                    mUris[i], mMD5Sums[i], mTypes[i], compareBuildDates(mFileNames[i]));
+                    mUris[i], mMD5Sums[i], mTypes[i], mFileSizes[i],
+                    compareBuildDates(mFileNames[i]));
             mUpdatesCategory.addPreference(pref);
             mUpdaterPreferences.add(pref);
         }
@@ -100,6 +102,8 @@ public class UpdaterFragment extends PreferenceFragment
                 .getString("md5_sum_list", "").split(",");
         mTypes = PreferenceManager.getDefaultSharedPreferences(activity)
                 .getString("type_list", "").split(",");
+        mFileSizes = PreferenceManager.getDefaultSharedPreferences(activity)
+                .getString("file_size_list", "").split(",");
 
     }
 
@@ -159,10 +163,13 @@ public class UpdaterFragment extends PreferenceFragment
                     .getString("md5_sum_list", "").split(",");
             mTypes = PreferenceManager.getDefaultSharedPreferences(mContext)
                     .getString("type_list", "").split(",");
+            mFileSizes = PreferenceManager.getDefaultSharedPreferences(mContext)
+                    .getString("file_size_list", "").split(",");
             if (mNames == null || mNames[0].isEmpty()) return;
             for (int i = 0; i < mFileNames.length; i++) {
                 UpdaterPreference pref = new UpdaterPreference(mContext, mNames[i], mFileNames[i],
-                        mUris[i], mMD5Sums[i], mTypes[i], compareBuildDates(mFileNames[i]));
+                        mUris[i], mMD5Sums[i], mTypes[i], mFileSizes[i],
+                        compareBuildDates(mFileNames[i]));
                 mUpdatesCategory.addPreference(pref);
                 mUpdaterPreferences.add(pref);
             }
@@ -183,7 +190,6 @@ public class UpdaterFragment extends PreferenceFragment
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object o) {
-        //mInterval is the only preference calling onPreferenceChange
         Intent i = new Intent("de.mm20.otaupdater.CHECK_UPDATES");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(mContext, 0, i, 0);
         AlarmManager manager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);

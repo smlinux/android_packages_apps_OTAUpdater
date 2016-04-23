@@ -44,6 +44,7 @@ public class UpdaterPreference extends Preference implements View.OnClickListene
     private String mFileUri;
     private String mMd5;
     private String mType;
+    private String mFileSize;
     private Context mContext;
 
     private TextView mTitle;
@@ -59,7 +60,7 @@ public class UpdaterPreference extends Preference implements View.OnClickListene
     private int mInstalledDeprecated;
 
     public UpdaterPreference(Context context, String buildName, String fileName, String fileUri,
-                             String md5, String type, int installedDeprecated) {
+                             String md5, String type, String fileSize, int installedDeprecated) {
         super(context);
         mContext = context;
         mFileUri = fileUri;
@@ -67,6 +68,7 @@ public class UpdaterPreference extends Preference implements View.OnClickListene
         mBuildName = buildName;
         mFileName = fileName;
         mType = type;
+        mFileSize = fileSize;
         mAbortDownload = false;
         mInstalledDeprecated = installedDeprecated;
         setLayoutResource(R.layout.updater_preference);
@@ -85,7 +87,8 @@ public class UpdaterPreference extends Preference implements View.OnClickListene
         else if (mInstalledDeprecated == -1)
             mTitle.setText(mBuildName + " " + mContext.getString(R.string.deprecated));
         else mTitle.setText(mBuildName);
-        mSummary.setText(mFileName);
+        String summary = mFileName + " (" + mFileSize + ")";
+        mSummary.setText(summary);
         updateIconAndState();
         mIcon.setOnClickListener(this);
     }
