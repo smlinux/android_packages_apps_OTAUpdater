@@ -32,4 +32,11 @@
     <string name="check_weekly">Wöchentlich</string>
     <string name="update_interval">Intervall</string>
     <string name="notify_update">Über neue Updates benachrichtigen</string>
+    <string name="downloaded">heruntergeladen</string>
+    <string name="changelog">Changelog</string>
+    <string name="released">Veröffentlicht</string>
+    <string name="type">Typ</string>
+    <string name="size">Größe</string>
+    <string name="full_update">Vollständiges Update</string>
+    <string name="incremental_update">Inkrementelles Update</string>
 </resources>

@@ -40,7 +40,7 @@
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".receiver.StartDownloadReceiver">
+        <receiver android:name=".receiver.DownloadReceiver">
             <intent-filter>
                 <action android:name="de.mm20.otaupdater.START_DOWNLOAD" />
             </intent-filter>

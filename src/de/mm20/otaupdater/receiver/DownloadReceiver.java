@@ -24,7 +24,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Environment;
-import android.os.SystemProperties;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -38,14 +37,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.DecimalFormat;
 
 import de.mm20.otaupdater.R;
 import de.mm20.otaupdater.activities.InstallUpdateActivity;
 import de.mm20.otaupdater.util.MD5;
+import de.mm20.otaupdater.util.UpdaterUtils;
 
-public class StartDownloadReceiver extends BroadcastReceiver {
-    private static final String TAG = "StartDownloadReceiver";
+public class DownloadReceiver extends BroadcastReceiver {
+    private static final String TAG = "DownloadReceiver";
     NotificationManager mManager;
     private String mFileName;
     private String mUri;
@@ -53,6 +52,7 @@ public class StartDownloadReceiver extends BroadcastReceiver {
     private String mInstallDeprecated;
     private Context mContext;
     private Notification.Builder mBuilder;
+    private static DownloadReceiver sInstance;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -62,16 +62,6 @@ public class StartDownloadReceiver extends BroadcastReceiver {
         mMd5 = intent.getStringExtra("md5");
         mInstallDeprecated = intent.getStringExtra("install_deprecated");
         new DownloadFileAsyncTask().execute(mUri);
-    }
-
-    private int compareBuildDates(String fileName) {
-        String currentVersion = SystemProperties.get("ro.cm.version");
-        int newBuild = Integer.parseInt(fileName.substring(8, 16));
-        int currentBuild = Integer.parseInt(currentVersion.substring(5, 13));
-        Log.d(TAG, "New build: " + newBuild + "; Installed build: " + currentBuild);
-        if (newBuild > currentBuild) return 1;
-        else if (newBuild == currentBuild) return 0;
-        return -1;
     }
 
     class DownloadFileAsyncTask extends AsyncTask<String, Integer, Boolean> {
@@ -95,11 +85,12 @@ public class StartDownloadReceiver extends BroadcastReceiver {
             PreferenceManager.getDefaultSharedPreferences(mContext).edit()
                     .putString("currently_downloading", mFileName)
                     .putBoolean("abort_download", false)
-                    .putInt("dl_progress_current", -1).apply();
+                    .putInt("dl_progress_current", 0).apply();
         }
 
         @Override
         protected Boolean doInBackground(String... params) {
+            mDownloadedSize = 0;
             int count;
             try {
                 new File(Environment
@@ -112,6 +103,7 @@ public class StartDownloadReceiver extends BroadcastReceiver {
                 }
                 connection.connect();
                 mFileSize = connection.getContentLength();
+                publishProgress(0);
                 InputStream input = new BufferedInputStream(url.openStream(), 8192);
                 OutputStream output = new FileOutputStream(Environment
                         .getExternalStorageDirectory() + "/cmupdater/cm-download.part");
@@ -168,20 +160,11 @@ public class StartDownloadReceiver extends BroadcastReceiver {
             }
         }
 
-        private String fileSizeAsString(long size) {
-            if (size <= 0) return "0";
-            final String[] units = new String[]{"B", "kB", "MB", "GB", "TB"};
-            int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
-            return new DecimalFormat("#,##0.#").format(size / Math.pow(1024, digitGroups)) + " " +
-                    units[digitGroups];
-
-        }
-
         @Override
         protected void onProgressUpdate(Integer... values) {
             mBuilder.setProgress(100, values[0], false)
-                    .setContentText(fileSizeAsString(mDownloadedSize) + "/" +
-                            fileSizeAsString(mFileSize));
+                    .setContentText(UpdaterUtils.fileSizeAsString(mDownloadedSize) + "/" +
+                            UpdaterUtils.fileSizeAsString(mFileSize));
             mManager.notify(1, mBuilder.build());
             PreferenceManager.getDefaultSharedPreferences(mContext).edit()
                     .putInt("dl_progress_current", values[0]).apply();
@@ -202,7 +185,7 @@ public class StartDownloadReceiver extends BroadcastReceiver {
                         .setSmallIcon(R.drawable.ic_system_update)
                         .setContentIntent(PendingIntent.getActivity(mContext, 0, i, 0))
                         .setProgress(0, 0, false);
-                mManager.notify(2, mBuilder.build());
+                mManager.notify(0, mBuilder.build());
             } else {
                 Toast.makeText(mContext, R.string.download_failed, Toast.LENGTH_LONG).show();
             }

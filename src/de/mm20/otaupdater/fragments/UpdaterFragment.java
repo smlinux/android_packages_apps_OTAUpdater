@@ -32,10 +32,14 @@ import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.Date;
 
 import de.mm20.otaupdater.R;
+import de.mm20.otaupdater.util.UpdaterUtils;
 import de.mm20.otaupdater.widget.UpdaterPreference;
 
 public class UpdaterFragment extends PreferenceFragment
@@ -49,6 +53,7 @@ public class UpdaterFragment extends PreferenceFragment
     private String[] mUris;
     private String[] mTypes;
     private String[] mFileSizes;
+    private String mUpdatesJson;
     private Preference mCheckUpdates;
     private ListPreference mInterval;
     private ArrayList<UpdaterPreference> mUpdaterPreferences;
@@ -64,6 +69,13 @@ public class UpdaterFragment extends PreferenceFragment
         mInterval = (ListPreference) findPreference("interval");
         mInterval.setOnPreferenceChangeListener(this);
         mCheckUpdates = findPreference("search_updates");
+        mCheckUpdates.setOnPreferenceClickListener(this);
+        PreferenceManager.getDefaultSharedPreferences(getContext())
+                .registerOnSharedPreferenceChangeListener(this);
+        setupPreferenceViews();
+    }
+
+    private void setupPreferenceViews(){
         long lastCheckedTime = PreferenceManager.getDefaultSharedPreferences(getActivity())
                 .getLong("updates_last_checked", -1);
         String lastChecked = getString(R.string.last_checked) + " ";
@@ -75,62 +87,33 @@ public class UpdaterFragment extends PreferenceFragment
                     DateFormat.getTimeFormat(getActivity()).format(date);
         }
         mCheckUpdates.setSummary(lastChecked);
-        mCheckUpdates.setOnPreferenceClickListener(this);
-        if (mFileNames.length < 1 || mFileNames[0].isEmpty()) return;
-        for (int i = 0; i < mFileNames.length; i++) {
-            UpdaterPreference pref = new UpdaterPreference(mContext, mNames[i], mFileNames[i],
-                    mUris[i], mMD5Sums[i], mTypes[i], mFileSizes[i],
-                    compareBuildDates(mFileNames[i]));
-            mUpdatesCategory.addPreference(pref);
-            mUpdaterPreferences.add(pref);
+        String json = PreferenceManager.getDefaultSharedPreferences(getContext())
+                .getString("updates_json", "[]");
+        mUpdatesCategory.removeAll();
+        try {
+            JSONArray jsonArray = new JSONArray(json);
+            mFileNames = new String[jsonArray.length()];
+            mNames = new String[jsonArray.length()];
+            mUris = new String[jsonArray.length()];
+            mMD5Sums = new String[jsonArray.length()];
+            for (int i = 0; i < jsonArray.length(); i++) {
+                UpdaterPreference preference = new UpdaterPreference(getContext(),
+                        jsonArray.optJSONObject(i));
+                mUpdatesCategory.addPreference(preference);
+                mUpdaterPreferences.add(preference);
+            }
+        } catch (JSONException e) {
+            Log.e(TAG, Log.getStackTraceString(e));
         }
     }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        mContext = activity;
-        PreferenceManager.getDefaultSharedPreferences(activity)
-                .registerOnSharedPreferenceChangeListener(this);
-        mFileNames = PreferenceManager.getDefaultSharedPreferences(activity)
-                .getString("file_name_list", "").split(",");
-        mNames = PreferenceManager.getDefaultSharedPreferences(activity)
-                .getString("build_name_list", "").split(",");
-        mUris = PreferenceManager.getDefaultSharedPreferences(activity)
-                .getString("build_uri_list", "").split(",");
-        mMD5Sums = PreferenceManager.getDefaultSharedPreferences(activity)
-                .getString("md5_sum_list", "").split(",");
-        mTypes = PreferenceManager.getDefaultSharedPreferences(activity)
-                .getString("type_list", "").split(",");
-        mFileSizes = PreferenceManager.getDefaultSharedPreferences(activity)
-                .getString("file_size_list", "").split(",");
-
-    }
-
-    /**
-     * Compares the build date of a new build with the build date of the installed one.
-     *
-     * @param fileName the file name of the new build
-     * @return 1 if the new build is newer than the installed one,
-     * 0 if the new build is already installed,
-     * -1 if the new build is older than the installed one
-     */
-    private int compareBuildDates(String fileName) {
-        String currentVersion = SystemProperties.get("ro.cm.version");
-        int newBuild = Integer.parseInt(fileName.substring(8, 16));
-        int currentBuild = Integer.parseInt(currentVersion.substring(5, 13));
-        Log.d(TAG, "New build: " + newBuild + "; Installed build: " + currentBuild);
-        if (newBuild > currentBuild) return 1;
-        else if (newBuild == currentBuild) return 0;
-        return -1;
-    }
+    
 
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
         if (preference == mCheckUpdates) {
             Intent checkUpdates = new Intent("de.mm20.otaupdater.CHECK_UPDATES");
-            getActivity().sendBroadcast(checkUpdates);
+            getContext().sendBroadcast(checkUpdates);
         }
         return true;
     }
@@ -139,47 +122,14 @@ public class UpdaterFragment extends PreferenceFragment
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
         if (!isAdded()) return;
         if (s.equals("updates_last_checked")) {
-            long lastCheckedTime = PreferenceManager.getDefaultSharedPreferences(mContext)
-                    .getLong("updates_last_checked", -1);
-            String lastChecked = getString(R.string.last_checked) + " ";
-            if (lastCheckedTime == -1) {
-                lastChecked += getString(R.string.never);
-            } else {
-                Date date = new Date(lastCheckedTime);
-                lastChecked += DateFormat.getDateFormat(getActivity()).format(date) + ", " +
-                        DateFormat.getTimeFormat(getActivity()).format(date);
-            }
-            mCheckUpdates.setSummary(lastChecked);
-            mCheckUpdates.setOnPreferenceClickListener(this);
-            mUpdaterPreferences.clear();
-            mUpdatesCategory.removeAll();
-            mFileNames = PreferenceManager.getDefaultSharedPreferences(mContext)
-                    .getString("file_name_list", "").split(",");
-            mNames = PreferenceManager.getDefaultSharedPreferences(mContext)
-                    .getString("build_name_list", "").split(",");
-            mUris = PreferenceManager.getDefaultSharedPreferences(mContext)
-                    .getString("build_uri_list", "").split(",");
-            mMD5Sums = PreferenceManager.getDefaultSharedPreferences(mContext)
-                    .getString("md5_sum_list", "").split(",");
-            mTypes = PreferenceManager.getDefaultSharedPreferences(mContext)
-                    .getString("type_list", "").split(",");
-            mFileSizes = PreferenceManager.getDefaultSharedPreferences(mContext)
-                    .getString("file_size_list", "").split(",");
-            if (mNames == null || mNames[0].isEmpty()) return;
-            for (int i = 0; i < mFileNames.length; i++) {
-                UpdaterPreference pref = new UpdaterPreference(mContext, mNames[i], mFileNames[i],
-                        mUris[i], mMD5Sums[i], mTypes[i], mFileSizes[i],
-                        compareBuildDates(mFileNames[i]));
-                mUpdatesCategory.addPreference(pref);
-                mUpdaterPreferences.add(pref);
-            }
+            setupPreferenceViews();
         } else if (s.equals("dl_progress_current") || s.equals("currently_downloading")) {
-            String dlFile = PreferenceManager.getDefaultSharedPreferences(mContext)
+            String dlFile = PreferenceManager.getDefaultSharedPreferences(getContext())
                     .getString("currently_downloading", "");
-            int progress = PreferenceManager.getDefaultSharedPreferences(mContext)
+            int progress = PreferenceManager.getDefaultSharedPreferences(getContext())
                     .getInt("dl_progress_current", 0);
-            for (int i = 0; i < mFileNames.length; i++) {
-                if (mFileNames[i].equals(dlFile)) {
+            for (int i = 0; i < mUpdaterPreferences.size(); i++) {
+                if (mUpdaterPreferences.get(i).getFileName().equals(dlFile)) {
                     mUpdaterPreferences.get(i).setProgress(progress);
                 } else {
                     mUpdaterPreferences.get(i).setProgress(-1);

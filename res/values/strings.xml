@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">System updates</string>
-    <string name="builds_list_uri" translatable="false">https://bitbucket.org/mm20/android_otaupdates/raw/cm-13.0/filelist.xml</string>
+    <string name="builds_list_uri" translatable="false">https://bitbucket.org/mm20/android_otaupdates/raw/cm-13.0/filelist.json</string>
     <string name="fetch_failed">Failed to fetch builds. Please check your network connection.
     </string>
     <string name="updates">Updates</string>
@@ -31,4 +31,11 @@
     <string name="check_weekly">Weekly</string>
     <string name="notify_update">Notify about new updates</string>
     <string name="update_interval">Interval</string>
+    <string name="downloaded">downloaded</string>
+    <string name="changelog">Changelog</string>
+    <string name="released">Released</string>
+    <string name="type">Type</string>
+    <string name="size">Size</string>
+    <string name="full_update">Full update</string>
+    <string name="incremental_update">Incremental update</string>
 </resources>
