@@ -141,8 +141,8 @@ public class UpdaterFragment extends PreferenceFragment
     @Override
     public boolean onPreferenceChange(Preference preference, Object o) {
         Intent i = new Intent("de.mm20.otaupdater.CHECK_UPDATES");
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(mContext, 0, i, 0);
-        AlarmManager manager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 0, i, 0);
+        AlarmManager manager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
         if (o.equals("-1") || o.equals("0")) {
             manager.cancel(pendingIntent);
             return true;
