@@ -7,13 +7,11 @@ import java.text.DecimalFormat;
 public class UpdaterUtils {
 
     private static String sDevice;
-    private static int sBuildDate;
+    private static long sBuildDate;
 
     static {
-        sDevice = SystemProperties.get("ro.cm.device");
-        String currentVersion = SystemProperties.get("ro.cm.version");
-        int start = currentVersion.indexOf('-') + 1;
-        sBuildDate = Integer.parseInt(currentVersion.substring(start, start + 8));
+        sDevice = SystemProperties.get("ro.product.device");
+        sBuildDate = Long.parseLong(SystemProperties.get("ro.build.date.utc"));
     }
 
     public static boolean isUpdateCompatible(int newBuildDate, int patchLevel, String device) {
@@ -32,7 +30,7 @@ public class UpdaterUtils {
     }
 
     public static int getSystemPatchLevel() {
-        String patchLevel = SystemProperties.get("ro.cm.patchlevel");
+        String patchLevel = SystemProperties.get("ro.build.patchlevel");
         if (patchLevel.isEmpty()) return 0;
         return Integer.parseInt(patchLevel);
     }

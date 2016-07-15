@@ -81,7 +81,7 @@ public class CheckForUpdateReceiver extends BroadcastReceiver {
                 JSONArray compatibleBuildsArray = new JSONArray();
                 int numNewUpdates = 0;
                 for (int i = 0; i < jsonArray.length(); i++) {
-                    int buildDate = jsonArray.getJSONObject(i).getInt("date");
+                    int buildDate = jsonArray.getJSONObject(i).getInt("builddate");
                     int patchLevel = jsonArray.getJSONObject(i).getInt("patchlevel");
                     String device = jsonArray.getJSONObject(i).getString("device");
                     String fileName = jsonArray.getJSONObject(i).getString("filename");

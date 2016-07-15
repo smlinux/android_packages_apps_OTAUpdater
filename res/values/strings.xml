@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">System updates</string>
-    <string name="builds_list_uri" translatable="false">https://bitbucket.org/mm20/android_otaupdates/raw/cm-13.0/filelist.json</string>
+    <string name="builds_list_uri" translatable="false">https://raw.githubusercontent.com/MaxMustermann2-0/android_otaupdates/APIv2.1/cm-13_0.json</string>
     <string name="fetch_failed">Failed to fetch builds. Please check your network connection.
     </string>
     <string name="updates">Updates</string>
