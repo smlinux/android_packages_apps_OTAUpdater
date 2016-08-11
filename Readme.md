@@ -16,34 +16,17 @@ The JSON file has a JSON array as root element. Whenever releasing an update you
 [
   {
     "name": "v1.1",
-    "filename": "systemupdate-20160715.zip",
-    "md5": "cf4d435e1f767593fa323e62803ddd65",
+    "filename": "systemupdate-20160811.zip",
+    "md5": "ce21cd30d997e0fe35f280ee5ec98c7b",
     "size": 317902317,
-    "builddate": 1468538300,
-    "releasedate": 1467412175000,
+    "builddate": 1470934360,
+    "releasedate": 1470938828000,
     "device": "m0",
     "url": "https://mydownloadserver.org/file/12345678",
     "patchlevel": 0,
     "changelog": [
-      "A really cool new feature",
-      "Another cool feature",
-      "A bug fix"
-    ]
-  },
-  {
-    "name": "v1.0",
-    "filename": "systemupdate-20160715.zip",
-    "md5": "cf4d435e1f767593fa323e62803ddd65",
-    "size": 317902317,
-    "builddate": 1468538300,
-    "releasedate": 1467412175000,
-    "device": "m0",
-    "url": "https://mydownloadserver.org/file/12345678",
-    "patchlevel": 0,
-    "changelog": [
-      "A really cool new feature",
-      "Another cool feature",
-      "A bug fix"
+      "A bug fix",
+      "Another bug fix"
     ]
   }
 ]
