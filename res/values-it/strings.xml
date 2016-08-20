@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Aggiornamenti di sistema</string>
     <string name="fetch_failed">Impossibile contattare il server. Controllare la propria connessione a internet.

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Actualización de sistema</string>
     <string name="fetch_failed">No se ha podido buscar paquetes. Por favor revise su conexión a la red.
