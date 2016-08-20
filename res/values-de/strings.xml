@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Systemaktualisierungen</string>
-    <string name="confirm_install">Eine Systemaktualisierung steht zur Installation bereit. Möchten
-        Sie sie jetzt installieren?
-    </string>
+    <string name="confirm_install">Eine Systemaktualisierung steht zur Installation bereit. Möchten Sie sie jetzt installieren? Ein Neustart wird benötigt.</string>
     <string name="confirm_install_installed">Dieses Update ist bereits installiert. Möchten Sie es neu installieren?</string>
     <string name="confirm_install_deprecated">Dieses Update ist veraltet. Es zu installieren kann zu Abstürzen und einem instabilen System führen. Möchten Sie es wirklich installieren?</string>
-    <string name="fetch_failed">Abrufen von Informationen fehlgeschlagen. Bitte prüfen Sie Ihre
-        Internet-Verbindung.
-    </string>
+    <string name="fetch_failed">Abrufen von Informationen fehlgeschlagen. Bitte prüfen Sie Ihre Internet-Verbindung.</string>
     <string name="system_update">Systemaktualisierung</string>
     <string name="updates">Updates</string>
     <string name="checking_for_updates">Nach Aktualisierungen suchen...</string>

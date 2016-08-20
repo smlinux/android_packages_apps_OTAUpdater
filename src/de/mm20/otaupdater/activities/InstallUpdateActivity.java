@@ -84,15 +84,18 @@ public class InstallUpdateActivity extends Activity {
                 try {
                     int attempts = 0;
                     File file = new File("/cache/recovery/update.zip");
-                    File recoveryScript = new File("/cache/recovery/openrecoveryscript");
                     do {
                         attempts++;
                         Process process = Runtime.getRuntime().exec("sh");
-                        DataOutputStream outputStream = new DataOutputStream(process.getOutputStream());
+                        DataOutputStream outputStream = new DataOutputStream(
+                                process.getOutputStream());
+                        // Copy update zip to cache partition
                         outputStream.writeBytes("cp -f " + updateFile +
                                 " /cache/recovery/update.zip\n");
+                        //Copy md5 sum file to cache partition
                         outputStream.writeBytes("cp -f " + updateFile +
                                 ".md5sum /cache/recovery/update.zip.md5sum\n");
+                        //Write recovery script to cache partition.
                         outputStream.writeBytes("printf \"install /cache/recovery/update.zip\nwipe " +
                                 "cache\nreboot\" >/cache/recovery/openrecoveryscript");
                         outputStream.flush();
@@ -104,6 +107,7 @@ public class InstallUpdateActivity extends Activity {
                         finish();
                         return;
                     }
+                    //Reboot to recovery
                     PowerManager powerManager = (PowerManager)
                             getSystemService(Context.POWER_SERVICE);
                     powerManager.reboot("recovery");
